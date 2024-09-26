@@ -2,6 +2,12 @@
 
 Este repositório contém a implementação do frontend para um mini sistema de arquivos virtuais. O frontend foi desenvolvido usando Angular e se comunica com o backend via API REST.
 
+- **Angular**: Framework para desenvolvimento de aplicações web.
+- **Angular CLI**: Ferramenta de linha de comando para Angular.
+- **RxJS**: Biblioteca para programação reativa.
+- **Bootstrap**: Framework de CSS para design responsivo.
+- **PrimeNG**: Conjunto de interface de usuário.
+
 ## Requisitos
 
 - Node.js (versão 14 ou superior)
@@ -12,7 +18,7 @@ Este repositório contém a implementação do frontend para um mini sistema de 
 1. **Clone o repositório:**
     ```bash
     git clone https://github.com/danicoln/arq-virtuais-ui.git
-    cd <DIRETORIO_DO_REPOSITORIO>
+    cd arq-virtuais-ui
     ```
 
 2. **Instale as dependências:**
