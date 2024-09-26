@@ -1,27 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { environment } from '../../../environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { firstValueFrom, from, Observable } from 'rxjs';
+import { BaseResourceService } from '../../../shared/services/base-resource.service';
 import { Diretorio } from './diretorio.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DiretorioService {
+export class DiretorioService extends BaseResourceService<Diretorio> {
 
-  chave: string = '';
-
-  private apiUrl = `${environment.apiBaseUrl}/diretorios`;
-
-  constructor(private http: HttpClient) { }
-
-  listarDiretorios(): Observable<Diretorio[]> {
-    const headers = new HttpHeaders().set('Authorization', this.chave);
-    return from(this.http.get<Diretorio[]>(this.apiUrl, { headers }));
+  constructor(
+    protected override injector: Injector
+  ) { 
+    super(`${environment.apiBaseUrl}/diretorios`, injector, Diretorio.fromJson)
   }
 
-  excluir(codigo: number): Promise<void> {
-    const headers = new HttpHeaders().set('Authorization', this.chave);
-    return firstValueFrom(this.http.delete<void>(`${this.apiUrl}/${codigo}`, { headers }));
-  }
 }

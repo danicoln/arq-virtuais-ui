@@ -13,7 +13,6 @@ import { SharedModule } from '../../shared/shared.module';
     DiretorioListComponent
   ],
   imports: [
-    CommonModule,
     DiretoriosRoutingModule,
     SharedModule
   ],

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { DiretorioService } from '../shared/diretorio.service';
-import { Diretorio } from '../shared/diretorio.model';
+import { Router } from '@angular/router';
 import { MessageComponent } from '../../../components/message/message.component';
 import { ErrorHandlerService } from '../../../core/error-handler.serice';
+import { Diretorio } from '../shared/diretorio.model';
+import { DiretorioService } from '../shared/diretorio.service';
 
 @Component({
   selector: 'app-diretorio-list',
@@ -17,13 +18,14 @@ export class DiretorioListComponent implements OnInit {
 
   diretorios!: Diretorio[];
   diretorio?: Diretorio;
-  itensSelecionados!: Diretorio[] |null;
+  itensSelecionados!: Diretorio[] | null;
 
   constructor(
     private error: ErrorHandlerService,
     private diretorioService: DiretorioService,
     private message: MessageComponent,
-  ){}
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.listar();
@@ -39,9 +41,7 @@ export class DiretorioListComponent implements OnInit {
 
   editar(diretorio: Diretorio) {
 
-    this.diretorio = { ...diretorio };
-    // this.itemDialog = true;
-
+    this.router.navigate([`/diretorios/${diretorio.id}/edit`]);
   }
 
   deletar(obj: Diretorio) {
@@ -51,25 +51,21 @@ export class DiretorioListComponent implements OnInit {
         'Esta ação excluirá o diretório permanentemente'
       ).then((confirmado) => {
         if (confirmado) {
-          this.diretorioService.excluir(obj.id!)
-          .then(() =>{
-            this.diretorios = this.diretorios.filter((value) => value.id !== obj.id);
-            this.diretorio = {};
-            this.message.showMessage('Info', 'Item excluído');
-            resolve(true);
-          })
-          .catch((error: any) => {
-            this.handleError(error);
-            reject(error);
-          });
+          this.diretorioService.delete(obj.id!)
+            .subscribe(() => {
+              this.diretorios = this.diretorios.filter((value) => value.id !== obj.id);
+              this.diretorio = {};
+              this.message.showMessage('Info', 'Item excluído');
+              resolve(true);
+            })
         } else {
           resolve(false);
         }
       })
-      .catch((error) => {
-        this.handleError(error);
-        reject(error);
-      });
+        .catch((error) => {
+          this.handleError(error);
+          reject(error);
+        });
     });
   }
 
@@ -81,7 +77,7 @@ export class DiretorioListComponent implements OnInit {
       if (confirmado) {
         try {
           for (const diretorio of this.itensSelecionados || []) {
-            await this.diretorioService.excluir(diretorio.id!);
+            await this.diretorioService.delete(diretorio.id!);
           }
           this.diretorios = this.diretorios.filter((value) => !this.itensSelecionados?.includes(value));
           this.diretorios = [...this.diretorios];
@@ -95,20 +91,19 @@ export class DiretorioListComponent implements OnInit {
   }
 
   listar() {
-    this.diretorioService.listarDiretorios()
-    .subscribe(
-      (diretorios: Diretorio[]) => {
-        this.diretorios = diretorios
-      },
-      erro => {
-        this.error.handle(erro);
-      }
-    );
+    this.diretorioService.listarResources()
+      .subscribe(
+        (diretorios: Diretorio[]) => {
+          this.diretorios = diretorios
+        },
+        erro => {
+          this.error.handle(erro);
+        }
+      );
   }
 
   abrirFormulario() {
-    const item = this.diretorio;
-    this.selectItem.emit(item);
+    this.router.navigate(['/diretorios/new']);
   }
 
   private handleError(erro: any): void {

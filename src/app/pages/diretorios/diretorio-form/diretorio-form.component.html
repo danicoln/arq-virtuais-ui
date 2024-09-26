@@ -1,1 +1,41 @@
-<p>diretorio-form works!</p>
+<div class="container mt-4">
+    <form [formGroup]="resourceForm!" (ngSubmit)="submitForm()">
+      
+      <p-card header="Nome do Diretório" class="m-3">
+          <div class="mb-3">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="nome" 
+                placeholder="Insira o nome"
+                disable="true"
+                formControlName="nome"
+                >
+          </div>
+            <div class="form-group">
+                    <p-button 
+                        type="submit" 
+                        severity="success" 
+                        [disabled]="resourceForm?.invalid"
+                        label="Salvar"
+                        >
+                    </p-button>
+                    <p-button 
+                        class="m-2"
+                        severity="secondary" 
+                        (click)="onCancelar()"
+                        label="Cancelar"
+                        >
+                    </p-button>
+                    <p-button 
+                        severity="warning" 
+                        (click)="editar()"
+                        label="Editar"
+                        >
+                    </p-button>
+            </div>
+      </p-card>
+ 
+    </form>
+  </div>
+  

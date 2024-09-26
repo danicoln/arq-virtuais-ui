@@ -4,12 +4,13 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { ButtonModule } from "primeng/button";
+import { CardModule } from "primeng/card";
 import { InputTextModule } from "primeng/inputtext";
+import { MessagesModule } from "primeng/messages";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
-import { ButtonComponent } from "../components/button/button.component";
-import { MessagesModule } from "primeng/messages";
 import { ToolbarModule } from "primeng/toolbar";
+import { ButtonComponent } from "../components/button/button.component";
 
 const COMPONENTS = [
     ButtonComponent
@@ -25,7 +26,8 @@ const MODULES = [
     ToastModule,
     TableModule,
     MessagesModule,
-    ToolbarModule
+    ToolbarModule,
+    CardModule
 ];
 
 @NgModule({
@@ -40,4 +42,4 @@ const MODULES = [
         MODULES,
     ]
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -1,0 +1,26 @@
+.header {
+    background-color: #6eb974;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.logo img {
+    max-height: 50px;
+}
+
+.nav-link,
+a {
+    text-decoration: none;
+}
+
+nav {
+    color: white;
+}
+
+nav a {
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.d-flex button {
+    margin-right: 10px;
+}
