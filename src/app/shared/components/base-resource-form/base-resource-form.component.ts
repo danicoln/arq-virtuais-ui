@@ -31,6 +31,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
         this.route = this.injector.get(ActivatedRoute);
         this.router = this.injector.get(Router);
         this.formBuilder = this.injector.get(FormBuilder);
+        this.message = this.injector.get(MessageComponent);
     }
 
     ngOnInit(): void {

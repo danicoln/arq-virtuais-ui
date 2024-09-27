@@ -17,9 +17,10 @@ export class MessageComponent implements ControlValueAccessor {
 
   showMessage(title: string, text: string, icon: SweetAlertIcon = 'info') {
     Swal.fire({
-      title,
-      text,
-      icon
+      title: title,
+      text: text,
+      icon: 'success',
+      confirmButtonText: 'Ok'
     }).then(() => {
       if (this.onTouched) {
         this.onTouched();
@@ -33,8 +34,8 @@ export class MessageComponent implements ControlValueAccessor {
 
   showConfirmation(title: string, text: string): Promise<boolean> {
     return Swal.fire({
-      title,
-      text,
+      title: title,
+      text: text,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sim',

@@ -62,10 +62,11 @@ export class DiretorioFormComponent extends BaseResourceFormComponent<Diretorio>
       if (diretorioData.id) {
         this.diretorioService.update(diretorioData).subscribe(
           response => {
+            this.actionsForSuccess(response);
             this.router?.navigate(['/diretorios']);
-            this.message?.showMessage("Sucesso", "Recurso atualizado com sucesso");
           },
           error => {
+            this.actionsForError(error);
             console.error('Erro ao atualizar o diretório', error);
           }
         );
@@ -74,10 +75,11 @@ export class DiretorioFormComponent extends BaseResourceFormComponent<Diretorio>
       } else {
         this.diretorioService.create(diretorioData).subscribe(
           response => {
+            this.actionsForSuccess(response);
             this.router?.navigate(['/diretorios']);
-            this.message?.showMessage("Sucesso", "Recurso criado com sucesso");
           },
           error => {
+            this.actionsForError(error);
             console.error('Erro ao salvar o diretório', error);
           }
         );
