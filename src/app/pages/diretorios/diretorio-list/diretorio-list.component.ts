@@ -76,18 +76,20 @@ export class DiretorioListComponent implements OnInit {
     ).then(async (confirmado) => {
       if (confirmado) {
         try {
-          for (const diretorio of this.itensSelecionados || []) {
-            await this.diretorioService.delete(diretorio.id!);
-          }
+          const promises = (this.itensSelecionados || []).map(diretorio => 
+            this.diretorioService.delete(diretorio.id!)
+          );
+          await Promise.all(promises); 
+
           this.diretorios = this.diretorios.filter((value) => !this.itensSelecionados?.includes(value));
           this.diretorios = [...this.diretorios];
-          this.listar();
           this.message.showMessage('Info', 'Itens excluídos com sucesso');
+          this.itensSelecionados = [];
         } catch (error) {
           this.handleError(error);
         }
       }
-    })
+    });
   }
 
   listar() {
