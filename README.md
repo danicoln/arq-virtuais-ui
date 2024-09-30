@@ -49,6 +49,28 @@ Este repositório contém a implementação do frontend para um mini sistema de 
     ng test
     ```
 
+6. **Evidências:**
+
+    **Listagem de Diretórios**
+
+    ![Listagem de Diretórios](assets/listagem.png)
+
+    **Cadastro de Diretórios**
+
+    ![Cadastro de Diretórios](assets/cadastro.png)
+
+    **Mensagem de Sucesso**
+
+    ![alt text](assets/msg-sucesso.png)
+
+    **Exclusão em Lote**
+
+    ![Exclusão em Lote](assets/exclusao-lote.png)
+
+    **Mensagem de Sucesso Exclusão em Lote**
+
+    ![Mensagem de Sucesso Exclusão em Lote](assets/msg-sucesso-lote.png)
+
 ## Documentação
 
 O projeto usa o Angular CLI e a documentação pode ser acessada no [Angular Docs](https://angular.io/docs).

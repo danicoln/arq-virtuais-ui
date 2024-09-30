@@ -77,12 +77,22 @@ export class DiretorioListComponent implements OnInit {
       if (confirmado) {
         try {
           const promises = (this.itensSelecionados || []).map(diretorio => 
-            this.diretorioService.delete(diretorio.id!)
+            new Promise<void>((resolve, reject) => {
+              this.diretorioService.delete(diretorio.id!).subscribe({
+                next: (resposta) => {
+                  // console.log('Item deletado:', diretorio.id, resposta);
+                  this.diretorios = this.diretorios.filter(d => d.id !== diretorio.id);
+                  resolve(); 
+                },
+                error: (err) => {
+                  reject(err); 
+                  this.handleError(err);
+                }
+              });
+            })
           );
           await Promise.all(promises); 
-
-          this.diretorios = this.diretorios.filter((value) => !this.itensSelecionados?.includes(value));
-          this.diretorios = [...this.diretorios];
+  
           this.message.showMessage('Info', 'Itens excluídos com sucesso');
           this.itensSelecionados = [];
         } catch (error) {
